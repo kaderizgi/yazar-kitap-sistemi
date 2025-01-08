@@ -1,0 +1,208 @@
+import 'package:flutter/material.dart';
+
+// Created by kaderizgi
+//
+//
+//! Instagram
+//! @https://www.instagram.com/codeveloper.ai/
+//
+//? GitHub
+//? https://github.com/kaderizgi
+//
+//* LinkedlN
+//* https://www.linkedin.com/in/kaderizgi
+//
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Yazar Kitap uygulaması',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+
+  final List<Map<String, String>> kitaplar = [
+    {
+      "kitapAdi": "Kürk Mantolu Madonna",
+      "yazar": "Sabahattin Ali",
+      "yayinevi": "Yapı Kredi Yayınları",
+      "resim":
+          "https://r2.1k-cdn.com/sig/size:256/plain/https%3A%2F%2F1k-cdn.com%2Fresimler%2Fyazarlar%2F44718_6J4bG_1503484502.jpg",
+    },
+    {
+      "kitapAdi": "Bilinmeyen Bir Kadının Mektubu",
+      "yazar": "Stefan Zweig",
+      "yayinevi": "Yapı Kredi Yayınları",
+      "resim":
+          "https://r2.1k-cdn.com/sig/size:256/plain/https%3A%2F%2F1k-cdn.com%2Fresimler%2Fyazarlar%2F56586_1702486500_T1fJD.jpg", // Farklı bir resim
+    },
+    {
+      "kitapAdi": "Yeraltından Notlar",
+      "yazar": "Fyodor Dostoyevski",
+      "yayinevi": "Yapı Kredi Yayınları",
+      "resim":
+          "https://r2.1k-cdn.com/sig/size:256/plain/https%3A%2F%2F1k-cdn.com%2Fresimler%2Fyazarlar%2F73622_hASgt_1527370965.jpg", // Farklı bir resim
+    },
+    {
+      "kitapAdi": "Serenad",
+      "yazar": "Zülfü Livaneli",
+      "yayinevi": "Yapı Kredi Yayınları",
+      "resim":
+          "https://r2.1k-cdn.com/sig/size:256/plain/https%3A%2F%2F1k-cdn.com%2Fresimler%2Fyazarlar%2F89367_GEMf8_1526153530.jpg", // Farklı bir resim
+    },
+    {
+      "kitapAdi": "Hayvan Çiftliği",
+      "yazar": "George Orwell",
+      "yayinevi": "Yapı Kredi Yayınları",
+      "resim":
+          "https://r2.1k-cdn.com/sig/size:256/plain/https%3A%2F%2F1k-cdn.com%2Fresimler%2Fyazarlar%2F9414_3e605_1551460437.jpg", // Farklı bir resim
+    },
+    {
+      "kitapAdi": "İnce Memed 1,2,3,4",
+      "yazar": "Yaşar Kemal",
+      "yayinevi": "Yapı Kredi Yayınları",
+      "resim":
+          "https://r2.1k-cdn.com/sig/size:256/plain/https%3A%2F%2F1k-cdn.com%2Fresimler%2Fyazarlar%2F56586_0mOqY_1515730869.jpg", // Farklı bir resim
+    },
+    {
+      "kitapAdi": "Beyaz Gemi",
+      "yazar": "Cengiz Aytmatov",
+      "yayinevi": "Yapı Kredi Yayınları",
+      "resim":
+          "https://r2.1k-cdn.com/sig/size:256/plain/https%3A%2F%2F1k-cdn.com%2Fresimler%2Fyazarlar%2F456_1462681350.jpg", // Farklı bir resim
+    },
+    {
+      "kitapAdi": "Acımak",
+      "yazar": "Reşat Nuri Güntekin",
+      "yayinevi": "Yapı Kredi Yayınları",
+      "resim":
+          "https://r2.1k-cdn.com/sig/size:256/plain/https%3A%2F%2F1k-cdn.com%2Fresimler%2Fyazarlar%2F200_Resat_Nuri_Guntekin732.jpg", // Farklı bir resim
+    },
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Yazar Kitap Sistemi'),
+        backgroundColor: Color(0xff6e554c),
+        foregroundColor: Colors.white,
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.list),
+          onPressed: () {},
+        ),
+      ),
+      body: ListView.builder(
+        itemCount: kitaplar.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            contentPadding:
+                EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
+            leading: CircleAvatar(
+              radius: 30,
+              backgroundImage: NetworkImage(kitaplar[index]['resim']!),
+            ),
+            title: Text(
+              kitaplar[index]['yazar']!,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => KitapDetaySayfasi(
+                    kitapAdi: kitaplar[index]['kitapAdi']!,
+                    yazarAdi: kitaplar[index]['yazar']!,
+                    yayinevi: kitaplar[index]['yayinevi']!,
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      ),
+      backgroundColor: Color(0xfff0f0f0),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Yazar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: 'Kitap',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore),
+            label: 'Keşfet',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class KitapDetaySayfasi extends StatelessWidget {
+  final String kitapAdi;
+  final String yazarAdi;
+  final String yayinevi;
+
+  KitapDetaySayfasi({
+    required this.kitapAdi,
+    required this.yazarAdi,
+    required this.yayinevi,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(yazarAdi)),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Kitap Detayları', style: TextStyle(fontSize: 22)),
+            SizedBox(height: 10),
+            Text('Kitap Adı: $kitapAdi'),
+            Text('Yazar: $yazarAdi'),
+            Text('Yayınevi: $yayinevi'),
+            SizedBox(height: 60),
+          ],
+        ),
+      ),
+      backgroundColor: Color(0xffd4cccc),
+    );
+  }
+}
